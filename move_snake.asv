@@ -12,9 +12,9 @@ nTar=false;
 
 if code==1 %%MOVIMIENTO DERECHA   
     head_x=head_x+1;
-elseif code==2 %%MOVIMIENTO IZQUIERDA
+elseif code==4 %%MOVIMIENTO IZQUIERDA
     head_x=head_x-1;
-elseif code==4 %%MOVIMIENTO ABAJO
+elseif code==2 %%MOVIMIENTO ABAJO
     head_y=head_y+1;
 elseif code==8 %% MOVIMIENTO ARRIBA
     head_y=head_y-1;
@@ -65,7 +65,21 @@ if vis_head==3
 %     
  end
 
+%%Direccion cola
+dify=snake(end-1,1)-snake(end,1);
+difx=snake(end-1,2)-snake(end,2);
 
+if dify>0
+    dirCola='0100'
+elseif dify<0
+    dirCola='1000'
+elseif difx>0
+    dirCola='0001'
+elseif difx<0
+    dirCola='0010'
+else
+    dirCola='0000'
+end
 
 
 

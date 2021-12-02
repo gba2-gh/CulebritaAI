@@ -45,27 +45,22 @@ while(1)
         it=0;
     end
     
-    dirHeadDec=2^j   
+    dirHead=2^j   
     
     %%Direccion cola
     dify=snake(end-1,1)-snake(end,1);
     difx=snake(end-1,2)-snake(end,2);
-    
-    dirHead= dec2bin(dirHeadDec)=='1';
-    acom= 4- size(dirHead,2)
-    acom2=zeros(1,acom)
-    dirHead=[acom2 dirHead]'
-    
+
     if dify>0
-        dirTail=[0 1 0 0]'
+        dirCola='0100'
     elseif dify<0
-        dirTail=[1 0 0 0]'
+        dirCola='1000'
     elseif difx>0
-        dirTail=[0 0 0 1]'
+        dirCola='0001'
     elseif difx<0
-        dirTail=[0 0 1 0]'
+        dirCola='0010'
     else
-        dirTail=[0 0 0 0]'
+        dirCola='0000'
     end
    
     %%VISION CULEBRA
@@ -122,22 +117,15 @@ while(1)
         distBodyE= body(end);   
     end
    
-    distMuro= [distMuroN;distMuroS;distMuroW;distMuroE]
+    distmuro= [distMuroN;distMuroS;distMuroW;distMuroE]
     distTarget=[distTargetN;distTargetS;distTargetW;distTargetE]
     distBody=[distBodyN;distBodyS;distBodyW;distBodyE]
     
-    nn_input=[distMuro;distTarget;distBody;dirHead;dirTail]
+    nn_input=[distM
     
 
         
-    
-    
-    
-    
-    
-    
-    
-    [snake_n, plane, kill]= move_snake(dirHeadDec, snake, plane);
+    [snake_n, plane, kill]= move_snake(dirHead, snake, plane);
     
     
      if kill
