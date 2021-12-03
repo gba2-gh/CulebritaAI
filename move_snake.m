@@ -1,6 +1,6 @@
 function [snake, plane, kill]=move_snake(code, snake, plane);
 
-%code= bin2dec(code);
+code= bin2dec(code);
 
 head_y=snake(1,1);
 head_x=snake(1,2);
@@ -21,13 +21,15 @@ elseif code==8 %% MOVIMIENTO ARRIBA
 end
   
 %DESTRUIR SI ENCUENTRA PARED
-if head_x==size(plane,1) || head_y==size(plane,1)
+if plane(head_y, head_x)==4
+    fprintf('encontro pared')
     kill=true;
     return
 end
 
 %DESTRUIR SI ENCUENTRA EL CUERPO
 if plane(head_y,head_x)==1 
+    fprintf('encontro cuerpo')
     kill=true;
     return
 end
@@ -37,16 +39,13 @@ vis_head=plane(head_y,head_x);
 
 
 %%Antes de avanzar borrar posicion actual de la cola
-%plane(snake(end,1),snake(end,2))=0; 
 %avanzar cola
 for k=size(snake,1):-1:2
-    snake(k,:) = snake(k-1,:)   ;
-    plane(snake(k,1),snake(k,2))=1;
-    %plane(snake(end,1),snake(end,2))=1;     
+    snake(k,:) = snake(k-1,:)   ; 
 end 
 %%ACTUALIZAR CABEZA
 snake(1,:)=[head_y,head_x];
-plane(snake(1,1),snake(1,2))=2;     
+ 
  
 
 %%Encuentra marca
@@ -58,7 +57,7 @@ if vis_head==3
     [row,col] = find(plane==1 | plane==2);%%posicion que contiene a la serpiente
     new_target=round(random(2,size(plane)-1,2));
     while (ismember(new_target(1),row,'rows') && ismember(new_target(2),col,'rows'))
-        new_target=round(random(2,gridSize+1,2));
+        new_target=round(random(2,size(plane,1)-2,2));
     end
      %new_target=[10,6]
      plane(new_target(1), new_target(2))=3;

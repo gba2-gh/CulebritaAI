@@ -1,0 +1,53 @@
+function out=ga_crossing(snakes_w);
+
+%%RESHAPE
+
+w1_flat=reshape(snakes_w,[ 1,size(snakes_w,1)* size(snakes_w,2), size(snakes_w,3)]);
+
+k=1;
+temp=w1_flat;
+while size(temp,3) > 0
+    %Seleccionar padres al azar
+    padre_idx=round(1 + (size(temp,3)-1).*rand());
+    padre1= temp(:,:,padre_idx);
+    temp(:,:,padre_idx) = [];
+    
+    padre_idx=round(1 + (size(temp,3)-1).*rand());
+    padre2= temp(:,:,padre_idx);    
+    temp(:,:,padre_idx) = [];
+    
+    
+    cross_point= round(random(1,size(padre1,2),1));%x
+    
+    hijo1 = padre1(1,[1:cross_point-1]) ;
+    hijo1 = cat(2, hijo1, padre2(1,[cross_point:end]));    
+    hijo2 = padre2(1,[1:cross_point-1]) ;
+    hijo2 = cat(2, hijo2, padre1(1,[cross_point:end]));
+    
+    
+    
+    r = normrnd(0,1,1,1)
+    r=r*0.2
+    
+%     %%%Mutacion
+%     mut_points1= round(1 + (243-1).*rand(1,mut_amount));%
+%     mut_points2= round(1 + (243-1).*rand(1,mut_amount));
+%     for i=1:size(mut_points1,2)
+%         alelo_new=round(0 + (6-0).*rand());
+%         hijo1(mut_points1(1,i))= alelo_new;
+%         alelo_new=round(0 + (6-0).*rand());
+%         hijo2(mut_points2(1,i))= alelo_new;
+%     end
+    
+
+    %temp = temp([1:padre_idx(2)-1, padre_idx(2)+1:end])
+    
+    hijos(:,:,k) = hijo1;
+    hijos(:,:,k+1) =hijo2;
+    k=k+2;
+end
+
+out=reshape(hijos,[size(snakes_w,1), size(snakes_w,2), size(snakes_w,3)]);
+%B=reshape(A,[ 1,size(A,1)* size(A,2)])
+
+end
