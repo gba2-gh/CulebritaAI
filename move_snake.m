@@ -1,7 +1,7 @@
-function [snake, plane, kill]=move_snake(code, snake, plane);
+function [snake, plane, kill, ate]=move_snake(code, snake, plane);
 
 code= bin2dec(code);
-
+ate=false;
 head_y=snake(1,1);
 head_x=snake(1,2);
 snakeLen=size(snake,1);
@@ -22,14 +22,14 @@ end
   
 %DESTRUIR SI ENCUENTRA PARED
 if plane(head_y, head_x)==4
-    fprintf('encontro pared')
+    fprintf('encontro pared\n')
     kill=true;
     return
 end
 
 %DESTRUIR SI ENCUENTRA EL CUERPO
 if plane(head_y,head_x)==1 
-    fprintf('encontro cuerpo')
+    fprintf('encontro cuerpo\n')
     kill=true;
     return
 end
@@ -61,7 +61,7 @@ if vis_head==3
     end
      %new_target=[10,6]
      plane(new_target(1), new_target(2))=3;
-%     
+     ate=true;
  end
 
 

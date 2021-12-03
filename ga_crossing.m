@@ -25,7 +25,7 @@ while size(temp,3) > 0
     hijo2 = cat(2, hijo2, padre1(1,[cross_point:end]));
     
     %     %%%Mutacion
-    per_mut=0.09;
+    per_mut=0.05;
     for p=1:size(hijo1,2)
         prob=random(0,1,1);
         if prob<=per_mut
